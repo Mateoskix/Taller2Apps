@@ -11,11 +11,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Agregar un producto al carrito
 function agregarAlCarrito(index) {
-    carrito.push(index);
+    const producto = productos[index];
+    const cantidad = parseInt(document.getElementById(`cantidad-${index}`).value);
+    const productoEnCarrito = {
+        nombre: producto.nombre,
+        imagen: producto.imagen,
+        cantidad: cantidad,
+        costo: producto.costo
+    };
+
+    carrito.push(productoEnCarrito);
     actualizarCarritoEnLocalStorage();
     mostrarCarrito();
 
-    document.getElementById(`cantidad-${index}`).value = 0; // Reseteamos la cantidad a 0
+    document.getElementById(`cantidad-${index}`).value = 0;
 }
 
 // Función para actualizar el carrito en el localStorage
@@ -26,11 +35,8 @@ function actualizarCarritoEnLocalStorage() {
 // Función para mostrar los productos disponibles en la página
 function mostrarProductos() {
     const contenedorProductos = document.querySelector('.productos');
-
-    // Limpiar el contenedor de productos antes de agregar los nuevos
     contenedorProductos.innerHTML = '';
 
-    // Recorrer la lista de productos y crear elementos HTML para cada uno
     productos.forEach((producto, index) => {
         const productoItem = document.createElement('div');
         productoItem.classList.add('producto');
@@ -72,44 +78,44 @@ document.addEventListener('DOMContentLoaded', function() {
     mostrarProductos();
 });
 
-
 // Mostrar los productos en el carrito
 function mostrarCarrito() {
     const listaProductos = document.querySelector('.lista-productos');
     listaProductos.innerHTML = '';
 
-    carrito.forEach(productoIndex => {
-        const producto = productos[productoIndex];
-        const item = document.createElement('div');
-        item.classList.add('producto-carrito');
-        item.innerHTML = `
-            <img src="${producto.imagen}" alt="${producto.nombre}">
-            <div class="info">
-                <h3>${producto.nombre}</h3>
-                <p>Precio: $${producto.costo}</p>
-            </div>
-            <button class="eliminar" onclick="eliminarDelCarrito(${productoIndex})">Eliminar</button>
-        `;
-        listaProductos.appendChild(item);
+    carrito.forEach((producto, index) => {
+        if (producto && typeof producto === 'object' && producto.imagen) {
+            const item = document.createElement('div');
+            item.classList.add('producto-carrito');
+            item.innerHTML = `
+                <img src="${producto.imagen}" alt="${producto.nombre}">
+                <div class="info">
+                    <h3>${producto.nombre}</h3>
+                    <p>Precio: $${producto.costo}</p>
+                    <p>Cantidad: ${producto.cantidad}</p>
+                    <button class="eliminar" onclick="eliminarDelCarrito(${index})">Eliminar</button>
+                </div>
+            `;
+            listaProductos.appendChild(item);
+        }
     });
 
     calcularTotal();
 }
 
+
 // Calcular el total en el carrito
 function calcularTotal() {
-    const totalPrecio = carrito.reduce((total, producto) => total + (producto.precio * producto.cantidad), 0);
+    const totalPrecio = carrito.reduce((total, producto) => total + (producto.costo * producto.cantidad), 0);
     document.getElementById('total-precio').textContent = `$${totalPrecio.toFixed(2)}`;
 }
 
-//Agregar productos al carrito
-document.addEventListener('click', event => {
-    if (event.target.classList.contains('agregar')) {
-        const productoIndex = event.target.dataset.index;
-        const producto = productos[productoIndex];
-        agregarAlCarrito(producto);
-    }
-});
+function eliminarDelCarrito(index) {
+    carrito.splice(index, 1);
+    actualizarCarritoEnLocalStorage();
+    mostrarCarrito();
+}
+
 
 // Función para sumar la cantidad
 function sumarCantidad(index) {
@@ -140,11 +146,6 @@ function restarCantidad(index) {
         inputCantidad.value = parseInt(inputCantidad.value) - 1; // Restamos 1 a la cantidad actual
     }
 }
-
-
-
-
-
 
 // Lista de productos
 const productos = [

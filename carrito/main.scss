@@ -54,7 +54,7 @@
             }
         }
 
-        .agregar {
+        .agregar, .eliminar {
             padding: 5px 10px; // Espaciado interno del botón "Agregar al carrito"
             border: none; // Elimina los bordes del botón
             border-radius: 10px;
@@ -67,6 +67,8 @@
                 background-color: #218838; // Cambia el color de fondo al pasar el cursor
             }
         }
+
+
     }
 }
 
@@ -76,6 +78,7 @@
     width: 25%;
     border-left: 1px solid #ccc;
     padding-left: 20px;
+    background-color: rgb(100, 85, 85, 0.1);
 }
 
 .lista-productos {
