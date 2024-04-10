@@ -1,0 +1,155 @@
+.container {
+    display: flex;
+    overflow-y: hidden;
+    height: 97.4vh;
+}
+
+.productos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: calc(75% - 20px); 
+    margin-right: px; 
+    margin-bottom: 20px; // Margen inferior para separar los productos de otros elementos si es necesario
+    gap: 8px; // Espacio entre las columnas de productos
+    height: 100vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.producto {
+    margin-bottom: 20px; // Espacio entre cada producto
+    flex-basis: 50%;
+    .producto-info {
+        border: 3px solid #afa3a3; // Borde del producto
+        border-radius: 5px; // Bordes redondeados
+        padding: 10px; // Espacio interno
+
+        h3 {
+            margin-top: 0; // Elimina el margen superior del título
+        }
+
+        img {
+            width: 100%; /* Ajusta la imagen para que ocupe todo el ancho del contenedor */
+            height: auto;
+        }
+
+        p {
+            margin: 5px 0; // Espacio entre párrafos
+        }
+    }
+
+    .producto-agregar {
+        margin-top: 10px; // Espacio entre la información del producto y los botones de cantidad y agregar al carrito
+
+        .cantidad {
+            display: flex; // Flexbox para alinear botones de cantidad
+            align-items: center;
+
+            button {
+                padding: 5px 10px; // Espaciado interno de los botones
+                border: none; // Elimina los bordes de los botones
+                background-color: transparent;
+                cursor: pointer; // Cambia el cursor al pasar sobre los botones
+            }
+
+            input {
+                width: 50px; // Ancho del campo de entrada de cantidad
+                text-align: center; // Centra el texto dentro del campo de entrada
+                border-radius: 5px;
+            }
+        }
+
+        .agregar {
+            padding: 5px 10px; // Espaciado interno del botón "Agregar al carrito"
+            border: none; // Elimina los bordes del botón
+            border-radius: 10px;
+            background-color: #28a745; // Color de fondo verde
+            color: white; // Color de texto blanco
+            cursor: pointer; // Cambia el cursor al pasar sobre el botón
+            margin-left: 8px;
+
+            &:hover {
+                background-color: #218838; // Cambia el color de fondo al pasar el cursor
+            }
+        }
+
+
+    }
+}
+
+
+.carrito {
+    position: sticky;
+    top: 0; 
+    width: 25%;
+    border-left: 1px solid #ccc;
+    padding-left: 20px;
+    background-color: rgb(100, 85, 85, 0.1);
+    height: 100vh;
+    overflow-y: auto;
+
+    
+    display: flex;
+    flex-direction: column;
+}
+
+.lista-productos {
+    margin-top: 20px;
+
+    .producto-carrito {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+
+        img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+
+        .info {
+            h3 {
+                margin: 0;
+            }
+        }
+    }
+}
+
+.total {
+    margin-top: 20px;
+    font-weight: bold;
+
+    span {
+        display: inline-block;
+        margin-left: 5px;
+    }
+}
+
+.add, .minus {
+    margin-left: 0px;
+}
+
+.producto-img {
+    width: 200px;
+    height: auto;
+}
+
+#mensaje {
+    display: none;
+    color: red;
+    margin-bottom: 5px;
+}
+
+.eliminar {
+    padding: 5px 10px; // Espaciado interno del botón "Agregar al carrito"
+    border: none; // Elimina los bordes del botón
+    border-radius: 10px;
+    background-color: #882121; // Color de fondo verde
+    color: white; // Color de texto blanco
+    cursor: pointer; // Cambia el cursor al pasar sobre el botón
+
+    &:hover {
+        background-color: #bd4c4c; // Cambia el color de fondo al pasar el cursor
+    }
+}
