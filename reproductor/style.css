@@ -150,8 +150,8 @@ input[type="range"]::-moz-range-thumb {
 
 input[type="range"]#volumeSlider {
     position: absolute; /* Posicionamiento absoluto */
-    top: 300px; /* Posición desde la parte superior */
-    right: 100px; /* Posición desde la derecha */
+    top: 290px; /* Posición desde la parte superior */
+    right: 490px; /* Posición desde la derecha */
     height: 16px; /* Altura de la barra de volumen */
     width: 100px;
     background: linear-gradient(to right, #3d3d3d 0%, #00ff48 50%, #00ff48 50%, #3d3d3d 100%); /* Gradiente lineal para el efecto de sombra */
