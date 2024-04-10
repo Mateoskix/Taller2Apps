@@ -1,14 +1,19 @@
 .container {
     display: flex;
+    overflow-y: hidden;
+    height: 97.4vh;
 }
 
 .productos {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    width: calc(75% - 20px); // El 20px es el margen que quieres entre la sección de productos y el carrito
-    margin-right: 8px; // Establece un margen derecho para separar los productos del carrito
+    width: calc(75% - 20px); 
+    margin-right: px; 
     margin-bottom: 20px; // Margen inferior para separar los productos de otros elementos si es necesario
     gap: 8px; // Espacio entre las columnas de productos
+    height: 100vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .producto {
@@ -54,7 +59,7 @@
             }
         }
 
-        .agregar, .eliminar {
+        .agregar {
             padding: 5px 10px; // Espaciado interno del botón "Agregar al carrito"
             border: none; // Elimina los bordes del botón
             border-radius: 10px;
@@ -74,11 +79,18 @@
 
 
 .carrito {
-    position: sticky; // Fija el carrito en la parte superior de la pantalla al hacer scroll
+    position: sticky;
+    top: 0; 
     width: 25%;
     border-left: 1px solid #ccc;
     padding-left: 20px;
     background-color: rgb(100, 85, 85, 0.1);
+    height: 100vh;
+    overflow-y: auto;
+
+    
+    display: flex;
+    flex-direction: column;
 }
 
 .lista-productos {
@@ -109,7 +121,8 @@
     font-weight: bold;
 
     span {
-        margin-right: 10px;
+        display: inline-block;
+        margin-left: 5px;
     }
 }
 
@@ -126,4 +139,17 @@
     display: none;
     color: red;
     margin-bottom: 5px;
+}
+
+.eliminar {
+    padding: 5px 10px; // Espaciado interno del botón "Agregar al carrito"
+    border: none; // Elimina los bordes del botón
+    border-radius: 10px;
+    background-color: #882121; // Color de fondo verde
+    color: white; // Color de texto blanco
+    cursor: pointer; // Cambia el cursor al pasar sobre el botón
+
+    &:hover {
+        background-color: #bd4c4c; // Cambia el color de fondo al pasar el cursor
+    }
 }

@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function agregarAlCarrito(index) {
     const producto = productos[index];
     const cantidad = parseInt(document.getElementById(`cantidad-${index}`).value);
+    
     const productoEnCarrito = {
         nombre: producto.nombre,
         imagen: producto.imagen,
@@ -150,25 +151,73 @@ function restarCantidad(index) {
 // Lista de productos
 const productos = [
     {
-        nombre: 'THE TORTURED POETS DEPARTMENT (Vynil)',
-        imagen: 'https://store.taylorswift.com/cdn/shop/files/oIrR9qXXeQRc3OuzsMq1YAqie8MY8mhq-2_700x745.png?v=1707185863',
-        etiqueta: 'Vinilo',
-        descripcion: '11° álbum de estudio de Taylor Swift. Cuenta con 16 canciones + 1 bonus track.',
+        nombre: "Fearless",
+        imagen: 'https://i.scdn.co/image/ab67616d00001e02a48964b5d9a3d6968ae3e0de',
+        etiqueta: 'CD',
+        descripcion: 'Segundo álbum de estudio de Taylor Swift, lanzado en 2008. Contiene éxitos como "Love Story" y "You Belong with Me".',
         costo: 34.99
-    }, 
+    },
     {
-        nombre: 'THE TORTURED POETS DEPARTMENT (CD)',
-        imagen: 'https://store.taylorswift.com/cdn/shop/files/oIrR9qXXeQRc3OuzsMq1YAqie8MY8mhq-2_700x745.png?v=1707185863',
+        nombre: 'Speak Now',
+        imagen: 'https://i.scdn.co/image/ab67616d0000b2730b04da4f224b51ff86e0a481',
         etiqueta: 'Vinilo',
-        descripcion: '11° álbum de estudio de Taylor Swift. Cuenta con 16 canciones + 1 bonus track.',
-        costo: 34.99
-    }, 
+        descripcion: 'Tercer álbum de estudio de Taylor Swift, lanzado en 2010. Destacan canciones como "Mine" y "Back to December".',
+        costo: 38.99
+    },
     {
-        nombre: 'THE TORTURED POETS DEPARTMENT (CD)',
-        imagen: 'https://store.taylorswift.com/cdn/shop/files/oIrR9qXXeQRc3OuzsMq1YAqie8MY8mhq-2_700x745.png?v=1707185863',
-        etiqueta: 'Vinilo',
-        descripcion: '11° álbum de estudio de Taylor Swift. Cuenta con 16 canciones + 1 bonus track.',
-        costo: 34.99
+        nombre: 'Red',
+        imagen: 'https://i.scdn.co/image/ab67616d0000b273318443aab3531a0558e79a4d',
+        etiqueta: 'CD',
+        descripcion: 'Cuarto álbum de estudio de Taylor Swift, lanzado en 2012. Incluye sencillos como "We Are Never Ever Getting Back Together" y "I Knew You Were Trouble".',
+        costo: 56.99
+    },
+    {
+        nombre: '1989',
+        imagen: 'https://i.scdn.co/image/ab67616d0000b273904445d70d04eb24d6bb79ac',
+        etiqueta: 'vinilo',
+        descripcion: 'Quinto álbum de estudio de Taylor Swift, lanzado en 2014. Destaca por su cambio al pop, con canciones como "Shake It Off" y "Blank Space".',
+        costo: 48.99
+    },
+    {
+        nombre: 'Reputation',
+        imagen: 'https://i.scdn.co/image/ab67616d0000b273da5d5aeeabacacc1263c0f4b',
+        etiqueta: 'CD',
+        descripcion: 'Sexto álbum de estudio de Taylor Swift, lanzado en 2017. Incluye sencillos como "Look What You Made Me Do" y "Delicate".',
+        costo: 49.99
+    },
+    {
+        nombre: 'Lover',
+        imagen: 'https://i.scdn.co/image/ab67616d0000b273e787cffec20aa2a396a61647',
+        etiqueta: 'CD',
+        descripcion: 'Séptimo álbum de estudio de Taylor Swift, lanzado en 2019. Contiene canciones como "ME!" y "You Need to Calm Down".',
+        costo: 36.77
+    },
+    {
+        nombre: 'Folklore',
+        imagen: 'https://i.scdn.co/image/ab67616d0000b27395f754318336a07e85ec59bc',
+        etiqueta: 'CD',
+        descripcion: 'Octavo álbum de estudio de Taylor Swift, lanzado en 2020. Presenta un sonido indie folk con canciones como "Cardigan" y "Exile".',
+        costo: 38.99
+    },
+    {
+        nombre: 'Evermore',
+        imagen: 'https://i.scdn.co/image/ab67616d0000b27333b8541201f1ef38941024be',
+        etiqueta: 'CD',
+        descripcion: 'Noveno álbum de estudio de Taylor Swift, lanzado en 2020. Continúa la estética de Folklore con canciones como "Willow" y "Champagne Problems".',
+        costo: 38.99
+    },
+    {
+        nombre: 'Midnights',
+        imagen: 'https://i.scdn.co/image/ab67616d0000b273bb54dde68cd23e2a268ae0f5',
+        etiqueta: 'CD',
+        descripcion: 'Décimo álbum de estudio de Taylor Swift, lanzado en 2022. Incluye canciones como "Anti-hero" y "Bejeweled".',
+        costo: 41.99
+    },
+    {
+        nombre: 'THE TORTURED POETS DEPARTMENT',
+        imagen: 'https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da8466b67d96a2721d9318322e04',
+        etiqueta: 'CD',
+        descripcion: 'Undécimo álbum de estudio de Taylor Swift, lanzado en 2024. Incluye canciones como "I Can Do It With A Broken Heart".',
+        costo: 50.99
     }
-    // Puedes agregar más productos aquí según necesites
 ];
