@@ -1,6 +1,5 @@
 public class Function {
     public static void main(String[] args) {
-        // Test your function here
         System.out.println(diffSubstring("abcabcbb"));
         System.out.println(diffSubstring("bbbbb"));
         System.out.println(diffSubstring("pwwkew"));
