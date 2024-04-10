@@ -1,33 +1,51 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #222;
     color: #fff;
     text-align: center;
-    padding-top: 50px;
+    padding-top: 100px;
+    padding-bottom: 100px;
     margin: 0;
+    overflow: hidden;
+    background: #71f38f;
+    background: -moz-linear-gradient(-45deg, #71f38f 0%, #3d4d91 100%);
+    background: -webkit-linear-gradient(-45deg, #71f38f 0%, #3d4d91 100%);
+    background: linear-gradient(135deg, #71f38f 0%, #3d4d91 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#71f38f', endColorstr='#3d4d91', GradientType=1);
+    
 }
 
 .container {
     max-width: 600px;
+    max-height: 800px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #333;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    background-color: #414141;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 255, 0, 0.868);
+
 }
 
 h1 {
-    font-size: 32px;
-    margin-bottom: 20px;
+    font-size: 42px;
+    margin-bottom: 3%;
 }
 
 ul.playlist {
     list-style: none;
     padding: 0;
+    display: none;
+}
+ul.playlist button {
+    color: #b3b3b3; /* Cambiar el color del texto a blanco (por ejemplo) */
+    
 }
 
 ul.playlist li {
     margin-bottom: 10px;
+}
+ul.current-track button {
+    color: #ff0000; /* Cambia el color del texto a rojo (por ejemplo) */
+    /* Otros estilos adicionales para la canción actual */
 }
 
 a {
@@ -52,33 +70,32 @@ a:hover {
 }
 
 button {
-    padding: 15px 20px;
-    margin: 0 10px;
-    font-size: 20px;
-    cursor: pointer;
-    border: none;
-    border-radius: 50%;
-    background-color: #00ff04;
-    color: #fff;
-    transition: background-color 0.3s ease;
+    padding: 10px; /* Espaciado interno del botón */
+    background-color: transparent; /* Fondo transparente */
+    border: none; /* Sin borde */
+    cursor: pointer; /* Cambiar cursor a puntero al pasar por encima */
 }
 
 .visualizer {
-    height: 10px;
-    
+    height: 5px;
     background-color: #ffffff;
     margin-top: 10px;
     border-radius: 20px;
-    animation: pulse 0.2s infinite alternate;
+    animation: none;
 }
 
 @keyframes pulse {
-    0% { transform: scale(1); }
-    100% { transform: scale(1.1); }
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.1);
+    }
 }
 
 button:hover {
-    background-color: #0015ff;
+    opacity: 0.7;
 }
 
 input[type="range"] {
@@ -88,14 +105,85 @@ input[type="range"] {
 
 /* Estilos para el icono dentro del botón */
 button i {
-    font-size: 24px;
+    font-size: 24px; /* Tamaño del ícono */
+    color: #fff; /* Color del ícono */
 }
 
 /* Estilos específicos para el botón de reproducir/pausar */
 #playPauseButton {
-    background-color: #000000; /* Color verde cuando está pausado */
+    background-color: #000000;
+    /* Color verde cuando está pausado */
 }
 
 #playPauseButton:hover {
     background-color: #00ff04;
+}
+
+input[type="range"] {
+    width: 100%; /* Ajusta el ancho para que llene el contenedor */
+    margin-top: 20px;
+    height: 10px; /* Establece la altura de la barra de progreso */
+    background: linear-gradient(to right, #ffffff 0%, #00ff48 50%, #00ff48 50%, #ffffff 100%); /* Gradiente lineal para el efecto de sombra */
+    border-radius: 5px; /* Borde redondeado */
+    appearance: none; /* Oculta los estilos predeterminados del navegador */
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    appearance: none; /* Oculta el control deslizante del navegador */
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.8); /* Sombra alrededor del control deslizante */
+}
+
+input[type="range"]::-moz-range-thumb {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+}
+
+input[type="range"]#volumeSlider {
+    position: absolute; /* Posicionamiento absoluto */
+    top: 300px; /* Posición desde la parte superior */
+    right: 100px; /* Posición desde la derecha */
+    height: 16px; /* Altura de la barra de volumen */
+    width: 100px;
+    background: linear-gradient(to right, #3d3d3d 0%, #00ff48 50%, #00ff48 50%, #3d3d3d 100%); /* Gradiente lineal para el efecto de sombra */
+    writing-mode: bt-lr; /* Texto de abajo hacia arriba (vertical) */
+    appearance: none; /* Oculta los estilos predeterminados del navegador */
+    transform: rotate(90deg); /* Rotar la barra de volumen 90 grados */
+    z-index: 999; /* Colocar por encima de otros elementos */
+    box-shadow: 0px 0px 20px rgb(255, 255, 255); /* Sombra suave */
+}
+
+input[type="range"]#volumeSlider::-webkit-slider-thumb {
+    appearance: none; /* Oculta el control deslizante del navegador */
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.8); /* Sombra alrededor del control deslizante */
+}
+
+input[type="range"]#volumeSlider::-moz-range-thumb {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+}
+
+#currentTrackName {
+    font-size: 18px;
+    margin-top: 20px;
+    color: #ffffff;
 }

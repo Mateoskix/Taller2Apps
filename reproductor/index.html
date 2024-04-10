@@ -12,86 +12,135 @@
 <body>
     <div class="container">
         <h1>Reproductor de Música</h1>
-
-        <!-- Elemento de audio -->
-        <audio id="audioPlayer" controls>
-            Tu navegador no soporta el elemento de audio.
-        </audio>
-
-        <!-- Botón para mostrar/ocultar lista de canciones -->
-        <button onclick="togglePlaylist()">Lista de Canciones</button>
-
-        <!-- Lista de canciones (oculta por defecto) -->
         <ul id="playlist" class="playlist" style="display: none;"></ul>
 
         <!-- Contenedor para efecto visual de sonido -->
         <div id="visualizer" class="visualizer"></div>
 
+        <input type="range" id="seekSlider" min="0" value="0" step="1" onchange="seekTo(this.value)">
+
+        <!-- Lista de canciones (oculta por defecto) -->
+        
+
+        <p id="currentTrackName"></p>
+
         <!-- Controles adicionales -->
         <div class="controls">
+            <button id="playlistToggleBtn" onclick="togglePlaylist()"><i class="fas fa-list"></i></button>
             <button onclick="previousTrack()"><i class="fas fa-backward"></i></button>
             <button onclick="togglePlayPause()" id="playPauseButton"><i class="fas fa-play"></i></button>
             <button onclick="nextTrack()"><i class="fas fa-forward"></i></button>
-            <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1" onchange="setVolume(this.value)">
+            <button onclick="toggleVolumeSlider()"><i class="fas fa-volume-up"></i></button>
+
+            <input type="range" style="display: none;" id="volumeSlider" min="0" max="1" step="0.1" value="1"
+                onchange="setVolume(this.value)" orient="vertical">
         </div>
-    </div>
     </div>
 
     <script>
-        const audioPlayer = document.getElementById('audioPlayer');
-        const playlistt = document.getElementById('playlist');
 
-        const storedPlaylist = localStorage.getItem('playlist');
-        let playlist = [];
+        const playlist = [
+            { name: "Innerbloom - Rüfüs Du Sol", url: "cancion1.mp3" },
+            { name: "it's murph - Food for the Soul", url: "cancion2.mp3" },
+            { name: "ou Were Right - Rüfüs Du Sol", url: "cancion3.mp3" },
+            { name: "Innerbloom - Rüfüs Du Sol", url: "cancion1.mp3" },
+            { name: "it's murph - Food for the Soul", url: "cancion2.mp3" }
+        ];
+        const seekSlider = document.getElementById('seekSlider');
 
-        if (storedPlaylist) {
-            playlist = JSON.parse(storedPlaylist);
-        } else {
-            // Si no hay lista en localStorage, usar la lista predeterminada
-            playlist = [
-                { name: "Canción 1", url: "cancion1.mp3" },
-                { name: "Canción 2", url: "cancion2.mp3" },
-                { name: "Canción 3", url: "cancion3.mp3" }
-            ];
-            localStorage.setItem('playlist', JSON.stringify(playlist));
-        }
-
-        const playlistElement = document.getElementById('playlist');
-
-        playlist.forEach((song, index) => {
-            const listItem = document.createElement('li');
-            const link = document.createElement('a');
-            link.href = `audio/${song.url}`;
-            link.textContent = song.name;
-            listItem.appendChild(link);
-            playlistElement.appendChild(listItem);
-
-            // Asignar evento click para reproducir la canción correspondiente
-            link.addEventListener('click', (event) => {
-                event.preventDefault(); // Evitar que el enlace redireccione
-                playTrack(index);
-            });
-        });
+        const visualizer = document.getElementById('visualizer');
+        let isPlaying = false; // Variable para controlar el estado de reproducción de la canción
 
 
         let currentTrack = 0;
+        let audio = new Audio(); // Crear un nuevo elemento de audio
+
+        function displayPlaylist() {
+            const playlistElement = document.getElementById('playlist');
+
+            // Limpiar cualquier contenido previo en la lista
+            playlistElement.innerHTML = '';
+
+            // Recorrer la lista de canciones y crear un botón para cada canción
+            playlist.forEach((song, index) => {
+                const button = document.createElement('button');
+                button.textContent = song.name; // Establecer el texto del botón como el nombre de la canción
+                button.addEventListener('click', () => {
+                    playTrack(index); // Llamar a playTrack() con el índice de la canción al hacer clic en el botón
+                });
+
+                const listItem = document.createElement('li');
+                listItem.appendChild(button); // Agregar el botón al elemento <li>
+                playlistElement.appendChild(listItem); // Agregar el elemento <li> a la lista de reproducción
+
+                // Agregar clase 'current-track' si es la canción actualmente en reproducción
+                if (index === currentTrack) {
+                    listItem.classList.add('current-track');
+                }
+            });
+
+            // Mostrar la lista de reproducción (cambiar display a 'block')
+            playlistElement.style.display = 'block';
+        }
+
+
 
         function playTrack(trackIndex) {
-            const trackUrl = playlist[trackIndex].url;
-            audioPlayer.src = trackUrl;
-            audioPlayer.play();
+            const trackUrl = `audio/${playlist[trackIndex].url}`;
+            audio.src = trackUrl;
+            audio.play();
             currentTrack = trackIndex;
+
+            const currentTrackName = document.getElementById('currentTrackName');
+            currentTrackName.textContent = playlist[trackIndex].name; // Actualiza el nombre de la canción
 
             const visualizer = document.getElementById('visualizer');
             visualizer.style.animationPlayState = 'running';
+
+            if (audio.paused) {
+                isPlaying = false;
+                visualizer.style.animation = 'none'; // Detener la animación
+            } else {
+                isPlaying = true;
+                visualizer.style.animation = 'pulse 0.2s infinite alternate'; // Activar la animación
+            }
+
+            // Actualizar el botón de reproducir/pausar
+            updatePlayPauseButton(true);
+        }
+
+        function togglePlaylist() {
+            const playlistElement = document.getElementById('playlist');
+            const playlistToggleBtn = document.getElementById('playlistToggleBtn');
+
+            // Alternar la visibilidad de la lista de reproducción
+            if (playlistElement.style.display === 'none' || playlistElement.style.display === '') {
+                // Mostrar la lista de reproducción
+
+                displayPlaylist();
+
+                playlistElement.style.display = 'block';
+                playlistToggleBtn.innerHTML = '<i class="fas fa-times"></i>'; // Cambiar icono a "X" para cerrar
+            } else {
+                // Ocultar la lista de reproducción
+                playlistElement.style.display = 'none';
+                playlistToggleBtn.innerHTML = '<i class="fas fa-list"></i>'; // Restaurar icono de lista
+            }
         }
 
         function togglePlayPause() {
-            if (audioPlayer.paused) {
-                audioPlayer.play();
+            if (audio.paused) {
+                audio.play();
+                updatePlayPauseButton(true);
             } else {
-                audioPlayer.pause();
+                audio.pause();
+                updatePlayPauseButton(false);
             }
+        }
+
+        function updatePlayPauseButton(isPlaying) {
+            const playPauseButton = document.getElementById('playPauseButton');
+            playPauseButton.innerHTML = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
         }
 
         function nextTrack() {
@@ -105,32 +154,55 @@
         }
 
         function setVolume(volume) {
-            audioPlayer.volume = volume;
+            audio.volume = volume;
         }
 
-        function togglePlaylist() {
-            const playlistElement = document.getElementById('playlist');
-            playlistElement.style.display = (playlistElement.style.display === 'none') ? 'block' : 'none';
+        function toggleVolumeSlider() {
+            const volumeSlider = document.getElementById('volumeSlider');
+            volumeSlider.style.display = (volumeSlider.style.display === 'none') ? 'block' : 'none';
         }
 
-        function stopTrack() {
-            audioPlayer.pause();
-            audioPlayer.currentTime = 0;
-
-            // Detener efecto visual
-            const visualizer = document.getElementById('visualizer');
-            visualizer.style.animationPlayState = 'paused';
-        }
-
-        // Reproducir la primera canción al cargar la página
+        // Cargar la primera canción al cargar la página
         playTrack(currentTrack);
 
-        // Controlar la reproducción cuando se hace clic en la lista de canciones
-        /*Array.from(playlist.children).forEach((item, index) => {
-            item.addEventListener('click', () => {
-                playTrack(index);
-            });
-        });*/
+        // Actualizar el botón de reproducir/pausar al cambiar el estado del audio
+        audio.addEventListener('play', () => {
+            isPlaying = true;
+            visualizer.style.animation = 'pulse 0.2s infinite alternate'; // Activar la animación
+            visualizer.style.height = '8px';
+        });
+
+        audio.addEventListener('pause', () => {
+            isPlaying = false;
+            visualizer.style.animation = 'none'; // Detener la animación
+            visualizer.style.height = '1px';
+        });
+
+        audio.addEventListener('ended', () => {
+            isPlaying = false;
+            visualizer.style.animation = 'none'; // Detener la animación
+            visualizer.style.height = '1px';
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            // Obtener la posición actual y la duración total de la canción
+            const currentTime = audio.currentTime;
+            const duration = audio.duration;
+
+            // Calcular el nuevo valor para seekSlider
+            const seekValue = (currentTime / duration) * 100;
+
+            // Actualizar el valor de seekSlider
+            seekSlider.value = seekValue;
+        });
+        // Función para cambiar la posición de reproducción de la canción
+        function seekTo(value) {
+            // Calcular la nueva posición de reproducción basada en seekSlider value
+            const seekPosition = (value / 100) * audio.duration;
+
+            // Actualizar la posición de reproducción de la canción
+            audio.currentTime = seekPosition;
+        }
     </script>
 </body>
 
