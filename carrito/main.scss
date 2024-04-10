@@ -3,16 +3,17 @@
 }
 
 .productos {
-    columns: 3;
-    width: 400px; // El 20px es el margen que quieres entre la sección de productos y el carrito
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: calc(75% - 20px); // El 20px es el margen que quieres entre la sección de productos y el carrito
     margin-right: 8px; // Establece un margen derecho para separar los productos del carrito
     margin-bottom: 20px; // Margen inferior para separar los productos de otros elementos si es necesario
-
+    gap: 8px; // Espacio entre las columnas de productos
 }
 
 .producto {
     margin-bottom: 20px; // Espacio entre cada producto
-
+    flex-basis: 50%;
     .producto-info {
         border: 3px solid #afa3a3; // Borde del producto
         border-radius: 5px; // Bordes redondeados
@@ -116,4 +117,10 @@
 .producto-img {
     width: 200px;
     height: auto;
+}
+
+#mensaje {
+    display: none;
+    color: red;
+    margin-bottom: 5px;
 }
