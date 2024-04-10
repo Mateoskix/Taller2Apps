@@ -3,48 +3,11 @@
 }
 
 .productos {
-    width: calc(75% - 13px); // El 20px es el margen que quieres entre la sección de productos y el carrito
+    width: calc(75% - 20px); // El 20px es el margen que quieres entre la sección de productos y el carrito
     margin-right: 8px; // Establece un margen derecho para separar los productos del carrito
     margin-bottom: 20px; // Margen inferior para separar los productos de otros elementos si es necesario
 
-}
-
-.carrito {
-    width: 25%;
-    border-left: 1px solid #ccc;
-    padding-left: 20px;
-}
-
-.lista-productos {
-    margin-top: 20px;
-
-    .producto-carrito {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-
-        img {
-            width: 50px;
-            height: 50px;
-            margin-right: 10px;
-            border-radius: 5px;
-        }
-
-        .info {
-            h3 {
-                margin: 0;
-            }
-        }
-    }
-}
-
-.total {
-    margin-top: 20px;
-    font-weight: bold;
-
-    span {
-        margin-right: 10px;
-    }
+    // Resto de tus estilos para los productos...
 }
 
 .producto {
@@ -52,7 +15,7 @@
 
     .producto-info {
         border: 1px solid #ccc; // Borde del producto
-        border-radius: 13px; // Bordes redondeados
+        border-radius: 5px; // Bordes redondeados
         padding: 10px; // Espacio interno
 
         h3 {
@@ -106,5 +69,44 @@
                 background-color: #218838; // Cambia el color de fondo al pasar el cursor
             }
         }
+    }
+}
+
+
+.carrito {
+    width: 25%;
+    border-left: 1px solid #ccc;
+    padding-left: 20px;
+}
+
+.lista-productos {
+    margin-top: 20px;
+
+    .producto-carrito {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+
+        img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+
+        .info {
+            h3 {
+                margin: 0;
+            }
+        }
+    }
+}
+
+.total {
+    margin-top: 20px;
+    font-weight: bold;
+
+    span {
+        margin-right: 10px;
     }
 }

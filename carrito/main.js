@@ -6,11 +6,6 @@ function agregarAlCarrito(producto) {
     mostrarCarrito();
 }
 
-// Mostrar los productos al cargar la página
-document.addEventListener('DOMContentLoaded', function() {
-    mostrarProductos();
-});
-
 // Función para mostrar los productos disponibles en la página
 function mostrarProductos() {
     const contenedorProductos = document.querySelector('.productos');
@@ -25,19 +20,18 @@ function mostrarProductos() {
         productoItem.innerHTML = `
             <div class="producto-info">
                 <h3>${producto.nombre}</h3>
-                <img src="${producto.imagen}">
+                <img src="${producto.imagen}" alt="${producto.nombre}">
                 <p>${producto.etiqueta}</p>
                 <p>${producto.descripcion}</p>
                 <p>Precio: $${producto.costo}</p>
-                
-                <div class="producto-agregar">
-                    <div class="cantidad">
-                        <button class="restar" onclick="restarCantidad(${index})">-</button>
-                        <input type="number" min="0" value="0" id="cantidad-${index}">
-                        <button class="sumar" onclick="sumarCantidad(${index})">+</button>
-                    </div>
-                <button class="agregar" onclick="agregarAlCarrito(${index})">Agregar al carrito</button>
             </div>
+            <div class="producto-agregar">
+                <div class="cantidad">
+                    <button class="restar" onclick="restarCantidad(${index})">-</button>
+                    <input type="number" min="0" value="0" id="cantidad-${index}">
+                    <button class="sumar" onclick="sumarCantidad(${index})">+</button>
+                </div>
+                <button class="agregar" onclick="agregarAlCarrito(${index})">Agregar al carrito</button>
             </div>
         `;
         contenedorProductos.appendChild(productoItem);
@@ -95,9 +89,9 @@ const productos = [
         etiqueta: 'Vinilo',
         descripcion: '11° álbum de estudio de Taylor Swift. Cuenta con 16 canciones + 1 bonus track.',
         costo: 34.99
-    },
+    }, 
     {
-        nombre: 'THE TORTURED POETS DEPARTMENT (Vynil)',
+        nombre: 'THE TORTURED POETS DEPARTMENT (CD)',
         imagen: 'img/ttpd1.jpg',
         etiqueta: 'Vinilo',
         descripcion: '11° álbum de estudio de Taylor Swift. Cuenta con 16 canciones + 1 bonus track.',
